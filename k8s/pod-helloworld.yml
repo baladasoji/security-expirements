@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodehellodasoji.example.com
+  labels:
+    app: hellodasoji
+spec:
+  containers:
+  - name: docker-demo
+    image: baladasoji/docker-demo
+    ports:
+    - name: nodejs-port
+      containerPort: 3000

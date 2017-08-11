@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: hellodasoji-controller
+spec:
+  replicas: 2
+  selector:
+    app: hellodasoji
+  template:
+    metadata:
+      labels:
+        app: hellodasoji
+    spec:
+      containers:
+      - name: docker-demo
+        image: baladasoji/docker-demo
+        ports:
+        - containerPort: 3000
