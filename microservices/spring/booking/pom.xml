@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-spring-boot</artifactId>
+    <groupId>com.maersk</groupId>
+    <artifactId>booking-spring-ms</artifactId>
     <version>0.1.0</version>
 
     <scm>
@@ -35,11 +35,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
         </dependency>
 
         <dependency>
@@ -103,7 +98,7 @@
                   <goal>tag</goal>
                 </goals>
                 <configuration>
-                  <repository>gcr.io/dazzling-tensor-217/hello-springboot</repository>
+                  <repository>gcr.io/dazzling-tensor-217/maersk-booking-ms</repository>
                 </configuration>
               </execution>
             </executions>
