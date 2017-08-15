@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: hellosb
-        image: gcr.io/dazzling-tensor-217/hello-springboot:2.0
+        image: gcr.io/dazzling-tensor-217/hello-springboot:2.1
         ports:
         - name: httpport
           containerPort: 8080
