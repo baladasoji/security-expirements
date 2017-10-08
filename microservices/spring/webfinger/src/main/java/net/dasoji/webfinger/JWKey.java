@@ -1,4 +1,4 @@
-package net.dasoji;
+package net.dasoji.webfinger;
 import java.util.List;
 
 public class JWKey
