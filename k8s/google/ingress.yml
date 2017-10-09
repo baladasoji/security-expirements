@@ -1,0 +1,30 @@
+# An Ingress with 2 hosts and 3 endpoints
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dasoji-rules
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: dasojistatic-ip
+spec:
+  rules:
+  - host: ml.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: maerskline
+          servicePort: 80
+  - host: saf.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: safmarine
+          servicePort: 80
+  - host: sb.example.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hellosb-service
+          servicePort: 80
