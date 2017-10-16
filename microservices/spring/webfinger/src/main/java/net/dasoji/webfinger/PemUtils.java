@@ -13,14 +13,12 @@ import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import org.springframework.core.io.ClassPathResource;
 
 public class PemUtils {
 
-    private static byte[] parsePEMFile(File pemFile) throws IOException {
-        if (!pemFile.isFile() || !pemFile.exists()) {
-            throw new FileNotFoundException(String.format("The file '%s' doesn't exist.", pemFile.getAbsolutePath()));
-        }
-        PemReader reader = new PemReader(new FileReader(pemFile));
+    private static byte[] parsePEMFile(InputStream pemStream) throws IOException {
+        PemReader reader = new PemReader(new InputStreamReader(pemStream));
         PemObject pemObject = reader.readPemObject();
         return pemObject.getContent();
     }
@@ -56,12 +54,16 @@ public class PemUtils {
     }
 
     public static PublicKey readPublicKeyFromFile(String filepath, String algorithm) throws IOException {
-        byte[] bytes = PemUtils.parsePEMFile(new File(filepath));
+//        byte[] bytes = PemUtils.parsePEMFile(new File(filepath));
+        ClassPathResource res = new ClassPathResource(filepath);
+        byte[] bytes = PemUtils.parsePEMFile(res.getInputStream());
         return PemUtils.getPublicKey(bytes, algorithm);
     }
 
     public static PrivateKey readPrivateKeyFromFile(String filepath, String algorithm) throws IOException {
-        byte[] bytes = PemUtils.parsePEMFile(new File(filepath));
+        //byte[] bytes = PemUtils.parsePEMFile(new File(filepath));
+        ClassPathResource res = new ClassPathResource(filepath);
+        byte[] bytes = PemUtils.parsePEMFile(res.getInputStream());
         return PemUtils.getPrivateKey(bytes, algorithm);
     }
 
