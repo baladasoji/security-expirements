@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletResponse;
 import net.dasoji.webfinger.JWTGenerate;
+import java.io.IOException;
 @RestController
 public class RController {
 
@@ -82,7 +84,7 @@ public class RController {
 		}
 
 		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
-		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
+		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
 		{
 			CombinedToken token = new CombinedToken();
 			// If we could successfully populate the legacy objects then proceed with generating token else return an empty token
@@ -94,6 +96,10 @@ public class RController {
 				token.setToken_type("Bearer");
 				token.setExpires_in(3600);
 			}
+            else
+            {
+                response.sendRedirect("https://my.maerskline.com/portaluser/#login");
+            }
 			return token;
 		}
 
