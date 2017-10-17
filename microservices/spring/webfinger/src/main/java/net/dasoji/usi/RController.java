@@ -106,10 +106,11 @@ public class RController {
 				token.setAccess_token(access_token);
 				token.setToken_type("Bearer");
 				token.setExpires_in(3600);
+                response.sendRedirect(redirect_uri+"#access_token="+access_token+"&token_type=Bearer&id_token="+id_token+"&state="+state);
 			}
             else
             {
-                response.sendRedirect("https://my.maerskline.com/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?client_id="+client_id+"&scope="+scope+"&nonce="+nonce);
+                response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce);
             }
 			return token;
 		}
