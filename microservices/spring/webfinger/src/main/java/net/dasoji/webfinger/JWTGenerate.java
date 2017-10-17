@@ -90,7 +90,7 @@ public class JWTGenerate
     try {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
     byte[] hash = digest.digest(access_token.getBytes(StandardCharsets.UTF_8));
-    String encoded_hash = Base64.getEncoder().encodeToString(Arrays.copyOfRange(hash,0,127));
+    String encoded_hash = Base64.getEncoder().encodeToString(Arrays.copyOfRange(hash,0,hash.length/2));
 
     RSAPrivateKey privateKey = (RSAPrivateKey) PemUtils.readPrivateKeyFromFile(PRIVATE_KEY_FILE_RSA, "RSA");
     RSAPublicKey publicKey = (RSAPublicKey) PemUtils.readPublicKeyFromFile(PUBLIC_KEY_FILE_RSA, "RSA");
