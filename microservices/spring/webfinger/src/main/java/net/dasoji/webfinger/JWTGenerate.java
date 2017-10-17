@@ -47,7 +47,7 @@ public class JWTGenerate
     return rolelist;
   }
 
-  public String getAccessToken(MMLUserData md, SessionInfo si, UserInfo ui)
+  public String getAccessToken(MMLUserData md, SessionInfo si, UserInfo ui, String client_id)
   {
     try {
     RSAPrivateKey privateKey = (RSAPrivateKey) PemUtils.readPrivateKeyFromFile(PRIVATE_KEY_FILE_RSA, "RSA");
@@ -61,13 +61,16 @@ public class JWTGenerate
     String token = JWT.create()
         .withIssuer("https://autht.maerskline.com")
         .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")
+	.withClaim("aud",client_id)
+//	.withClaim("scope","profile")
+	.withClaim("appid","rcywhyza-2wdEIe9m5ppAq1xBr8x32c6D")
       //  .withClaim("firstname",ui.getFirstName())
       //  .withClaim("lastname",ui.getLastName())
         .withSubject(ui.getUserId())
         .withIssuedAt(new Date(System.currentTimeMillis()))
-        .withExpiresAt(new Date(System.currentTimeMillis()+60000))
+        .withExpiresAt(new Date(System.currentTimeMillis()+6000000))
         .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
-        .withArrayClaim("rolelist",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
+//        .withArrayClaim("rolelist",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
         .sign(algorithm);
       return token;
       } catch (JWTCreationException exception){

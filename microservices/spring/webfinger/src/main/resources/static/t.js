@@ -4,18 +4,20 @@ var id_token;
 var access_token;
 var token_type;
 var state;
+var hash;
 //checkHash();
 
 function checkHash(){ 
     if(window.location.hash != hash) { 
         hash = window.location.hash; 
+	hash = hash.substring(1);
         processHash(hash); 
     } t=setTimeout("checkHash()",400); 
 }
 
 function GetQueryStringParams(sParam)
 {
-    var sFragment = window.location.hash;
+    var sFragment = hash;
     var sURLVariables = sFragment.split('&');
 
     for (var i = 0; i < sURLVariables.length; i++)

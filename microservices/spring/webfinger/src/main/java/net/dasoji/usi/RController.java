@@ -100,7 +100,7 @@ public class RController {
 			if(populateLegacyObjects(restTemplate, headers))
 			{
 				JWTGenerate jg = new JWTGenerate();
-                String access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities());
+                String access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id);
                 String id_token = jg.getIdToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id, nonce, access_token ) ;
 				token.setId_token(id_token);
 				token.setAccess_token(access_token);
@@ -110,7 +110,7 @@ public class RController {
 			}
             else
             {
-                response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce);
+                response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce+"&state="+state);
             }
 			return token;
 		}
