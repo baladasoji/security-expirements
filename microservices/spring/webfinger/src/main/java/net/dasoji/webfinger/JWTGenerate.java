@@ -8,7 +8,7 @@ import java.security.interfaces.RSAKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import com.auth0.jwt.algorithms.Algorithm;
-import java.util.Date;
+import java.util.*;
 import net.dasoji.usi.*;
 
 public class JWTGenerate
@@ -16,6 +16,34 @@ public class JWTGenerate
   private static final String PRIVATE_KEY_FILE_RSA = "certs/privkey8.pem";
   private static final String PUBLIC_KEY_FILE_RSA = "certs/pubkey.pem";
   private static final Logger logger = LoggerFactory.getLogger(JWTGenerate.class);
+
+  private String getApplicationRoles(String allroles, String application)
+  {
+    List<String> list = new ArrayList<String>(Arrays.asList(allroles.split(",")));
+    list.removeIf(s -> !s.contains(application));
+    List<String> rolelist = new ArrayList<String>();
+    StringBuilder sb = new StringBuilder();
+    for (String temp: list)
+    {
+      String temp1 =temp.replace(application+":","");
+      sb.append(temp1).append(" ");
+    }
+    return sb.toString().trim();
+  }
+
+  private List<String> getApplicationRolesAsList (String allroles, String application)
+  {
+
+    List<String> list = new ArrayList<String>(Arrays.asList(allroles.split(",")));
+    list.removeIf(s -> !s.contains(application));
+    List<String> rolelist = new ArrayList<String>();
+    for (String temp: list)
+    {
+      String temp1 =temp.replace(application+":","");
+      rolelist.add(temp1);
+    }
+    return rolelist;
+  }
 
   public String getAccessToken(MMLUserData md, SessionInfo si, UserInfo ui)
   {
@@ -27,15 +55,17 @@ public class JWTGenerate
     logger.debug ("Public key algorithm " + publicKey.getAlgorithm());
     logger.debug ("private key algorithm " + privateKey.getAlgorithm());
     Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
+    String alwaysOnApplicationName = "AlwaysOn";
     String token = JWT.create()
-        .withIssuer("https://login.dasoji.net")
+        .withIssuer("https://autht.maerskline.com")
         .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")
-        .withClaim("firstname",ui.getFirstName())
-        .withClaim("lastname",ui.getLastName())
+      //  .withClaim("firstname",ui.getFirstName())
+      //  .withClaim("lastname",ui.getLastName())
         .withSubject(ui.getUserId())
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis()+60000))
-        .withClaim("roles",si.getRoles())
+        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
+        .withArrayClaim("rolelist",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
         .sign(algorithm);
       return token;
       } catch (JWTCreationException exception){

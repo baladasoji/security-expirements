@@ -1,28 +1,19 @@
 well-known:
-  issuer: https://login.maersk.com
-  authorization_endpoint:  https://login.maersk.com/connect/authorize
-  token_endpoint: https://login.maersk.com/connect/token
+  issuer: https://autht.maerskline.com
+  authorization_endpoint:  https://autht.maerskline.com/connect/authorize
+  token_endpoint: https://autht.maerskline.com/connect/token
   token_endpoint_auth_methods_supported:
     - client_secret_basic
-    - private_key_jwt
   token_endpoint_auth_signing_alg_values_supported:
     - RS256
     - ES256
     - DAS128
-  userinfo_endpoint: https://login.maersk.com/userinfo
-  jwks_uri: https://login.maersk.com/connect/jwks.json
-  registration_endpoint: https://login.maersk.com/connect/register
+  userinfo_endpoint: https://autht.maerskline.com/connect/userinfo
+  jwks_uri: https://autht.maerskline.com/connect/jwks.json
+  registration_endpoint: https://autht.maerskline.com/connect/register
   scopes_supported:
     - openid
-    - profile
-    - email
-    - address
-    - phone
-    - offline_access
   response_types_supported:
-    - code
-    - code id_token
-    - id_token
     - token id_token
   acr_values_supported:
     - urn:mace:incommon:iap:silver
