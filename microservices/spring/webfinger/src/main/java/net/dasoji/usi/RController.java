@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletResponse;
 import net.dasoji.webfinger.JWTGenerate;
@@ -84,21 +85,31 @@ public class RController {
 		}
 
 		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
-		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
+		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response,
+                                        @RequestParam("response_type") String response_type,
+                                        @RequestParam("client_id") String client_id,
+                                        @RequestParam("redirect_uri") String redirect_uri,
+                                        @RequestParam("scope") String scope,
+                                        @RequestParam("state") String state,
+                                        @RequestParam("nonce") String nonce
+
+                                        ) throws IOException
 		{
 			CombinedToken token = new CombinedToken();
 			// If we could successfully populate the legacy objects then proceed with generating token else return an empty token
 			if(populateLegacyObjects(restTemplate, headers))
 			{
 				JWTGenerate jg = new JWTGenerate();
-				token.setId_token(jg.getIdToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities()));
-				token.setAccess_token(jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities()));
+                String access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities());
+                String id_token = jg.getIdToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id, nonce, access_token ) ;
+				token.setId_token(id_token);
+				token.setAccess_token(access_token);
 				token.setToken_type("Bearer");
 				token.setExpires_in(3600);
 			}
             else
             {
-                response.sendRedirect("https://my.maerskline.com/portaluser/#login");
+                response.sendRedirect("https://my.maerskline.com/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?client_id="+client_id+"&scope="+scope+"&nonce="+nonce);
             }
 			return token;
 		}
