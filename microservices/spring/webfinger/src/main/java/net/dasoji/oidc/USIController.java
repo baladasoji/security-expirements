@@ -17,59 +17,35 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 public class USIController {
 
     @Autowired
-    private HttpServletRequest context;
-    
-    private static final String AUTH_HEADER = "authorization";
-    private static final String BEARER_FRAGMENT = "Bearer";
-    DecodedJWT jwt = null ;
-    String jwtString = null ;
-    
+    private HttpServletRequest request;
 
     @RequestMapping(value = "/usi", method = RequestMethod.GET, produces = "application/json")
-    public String index(HttpServletResponse response) throws IOException {
-        String jwtjson = getJWTString();
+    public String index() throws IOException {
+        String jwtjson = BearerJWTUtil.getJWTString(request);
         return jwtjson;
-
     }
 
-    private DecodedJWT getJWTfromHeader()
-    {
-        if (jwt == null )
+    @RequestMapping(value = "/booking", method = RequestMethod.GET, produces = "application/json")
+    public String getBooking() throws IOException {
+        if (BearerJWTUtil.assertRole(request, "Booking"))
         {
-            String allheaders = "";
-            String token="" ;
-            Enumeration headerNames = context.getHeaderNames();
-            while (headerNames.hasMoreElements()) 
-            {
-                String key = (String) headerNames.nextElement();
-                String value = context.getHeader(key);
-                if (key!=null && key.equals(AUTH_HEADER))
-                {
-                    token=value;
-                    token = token.substring(7);
-                    
-                }
-                allheaders = allheaders + key + value ;
-            }
-            if (!token.equals(""))
-            {
-                try {
-                    jwt = JWT.decode(token);
-                } catch (JWTDecodeException exception){
-                    exception.printStackTrace(System.err);
-                }
-            }
+          return "Booking number 100";
         }
-        System.out.println ("Decoded JWT and it is "+jwt);
-        return jwt;
-
-    }
-    private String getJWTString()
-    {
-        jwtString = "";
-        getJWTfromHeader();
-        jwtString = StringUtils.newStringUtf8(Base64.decodeBase64(jwt.getPayload()));
-        return jwtString;
+        else
+        {
+          return "No permission to access booking";
+        }
     }
 
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET, produces = "application/json")
+    public String getInvoices() throws IOException {
+        if (BearerJWTUtil.assertRole(request, "Finance"))
+        {
+          return "Invoice number 100";
+        }
+        else
+        {
+          return "No permission to access invoices";
+        }
+    }
 }

@@ -5,6 +5,9 @@ var access_token;
 var token_type;
 var state;
 var hash;
+var XMLReq;
+var bkgXMLReq;
+var invXMLReq;
 //checkHash();
 
 function checkHash(){
@@ -46,11 +49,10 @@ function getVendorInvoice()
 checkHash();
       document.getElementById("idtoken").innerHTML = id_token;
       document.getElementById("accesstoken").innerHTML = access_token;
-      document.getElementById("tokentype").innerHTML = token_type;
-      document.getElementById("state").innerHTML = state;
+//      document.getElementById("tokentype").innerHTML = token_type;
+//      document.getElementById("state").innerHTML = state;
 jwtb="Bearer "+access_token;
-var XMLReq = new XMLHttpRequest();
-
+XMLReq = new XMLHttpRequest();
 XMLReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("usitoken").innerHTML = this.responseText;
@@ -60,4 +62,26 @@ XMLReq.onreadystatechange = function() {
 XMLReq.open("GET", "https://autht.maerskline.com/usi", true );
 XMLReq.setRequestHeader("Authorization", jwtb);
 XMLReq.send(null);
+
+bkgXMLReq = new XMLHttpRequest();
+bkgXMLReq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("booking").innerHTML = this.responseText;
+    }
+  };
+//var vid = document.getElementById("decodedtoken").value;
+bkgXMLReq.open("GET", "https://autht.maerskline.com/booking", true );
+bkgXMLReq.setRequestHeader("Authorization", jwtb);
+bkgXMLReq.send(null);
+
+invXMLReq = new XMLHttpRequest();
+invXMLReq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("invoices").innerHTML = this.responseText;
+    }
+  };
+//var vid = document.getElementById("decodedtoken").value;
+invXMLReq.open("GET", "https://autht.maerskline.com/invoices", true );
+invXMLReq.setRequestHeader("Authorization", jwtb);
+invXMLReq.send(null);
 }
