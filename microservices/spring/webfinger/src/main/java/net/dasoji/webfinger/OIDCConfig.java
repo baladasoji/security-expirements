@@ -19,6 +19,7 @@ public class OIDCConfig {
     private String registration_endpoint;
     private List<String> scopes_supported;
     private List<String> response_types_supported;
+    private List<String> response_modes_supported;
     private List<String> acr_values_supported;
     private List<String> userinfo_signing_alg_values_supported;
     private List<String> userinfo_encryption_alg_values_supported;
@@ -191,6 +192,22 @@ public class OIDCConfig {
 	*/
 	public void setResponse_types_supported(List<String> response_types_supported) {
 		this.response_types_supported = response_types_supported;
+	}
+
+	/**
+	* Returns value of response_modes_supported
+	* @return
+	*/
+	public List<String> getResponse_modes_supported() {
+		return response_modes_supported;
+	}
+
+	/**
+	* Sets new value of response_modes_supported
+	* @param
+	*/
+	public void setResponse_modes_supported(List<String> response_modes_supported) {
+		this.response_modes_supported = response_modes_supported;
 	}
 
 	/**
