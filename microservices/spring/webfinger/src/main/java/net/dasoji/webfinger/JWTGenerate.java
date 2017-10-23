@@ -56,8 +56,8 @@ public class JWTGenerate
     logger.debug ("private key info " + privateKey.getModulus());
     logger.debug ("Public key algorithm " + publicKey.getAlgorithm());
     logger.debug ("private key algorithm " + privateKey.getAlgorithm());
-    //Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
-    Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
+    Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
+    //Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
     String alwaysOnApplicationName = "AlwaysOn";
     String token = JWT.create()
         .withIssuer("https://autht.maerskline.com")
@@ -102,8 +102,8 @@ public class JWTGenerate
     logger.debug ("private key info " + privateKey.getModulus());
     logger.debug ("Public key algorithm " + publicKey.getAlgorithm());
     logger.debug ("private key algorithm " + privateKey.getAlgorithm());
-    //Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
-    Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
+    Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
+    //Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
     String token = JWT.create()
         .withIssuer("https://autht.maerskline.com")
         .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")

@@ -92,9 +92,12 @@ cpXMLReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("cityprefix").innerHTML = this.responseText;
     }
+    else if (this.readyState == 4 && this.status == 403) {
+      document.getElementById("cityprefix").innerHTML = this.responseText;
+    }
   };
 //var vid = document.getElementById("decodedtoken").value;
-cpXMLReq.open("GET", "http://api188190live.gw-eu-east.akana.com/MAEU/locations/cities?cityprefix=az", true );
+cpXMLReq.open("GET", "https://api188190live.gw-eu-east.akana.com/MAEU/locations/cities?cityprefix=az", true );
 cpXMLReq.setRequestHeader("Authorization", jwtb);
 cpXMLReq.send(null);
 
@@ -104,9 +107,12 @@ cgXMLReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("citygeo").innerHTML = this.responseText;
     }
+    else if (this.readyState == 4 && this.status == 403) {
+      document.getElementById("citygeo").innerHTML = this.responseText;
+    }
   };
 //var vid = document.getElementById("decodedtoken").value;
-cgXMLReq.open("GET", "http://api188190live.gw-eu-east.akana.com/MAEU/locations/details/0QU63OKMO5YN0", true );
+cgXMLReq.open("GET", "https://api188190live.gw-eu-east.akana.com/MAEU/locations/details/0QU63OKMO5YN0", true );
 cgXMLReq.setRequestHeader("Authorization", jwtb);
 cgXMLReq.send(null);
 

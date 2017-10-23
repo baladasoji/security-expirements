@@ -13,8 +13,17 @@ well-known:
   registration_endpoint: https://autht.maerskline.com/connect/register
   scopes_supported:
     - openid
+    - profile
+    - Booking
+    - ShippingInstructions
+    - WBoL-Approve
+    - Finance
   response_types_supported:
     - token id_token
+    - token
+    - id_token
+  response_modes_supported:
+    - fragment
   acr_values_supported:
     - urn:mace:incommon:iap:silver
     - urn:mace:incommon:iap:bronze
