@@ -84,7 +84,7 @@ public class RController {
 				return false;
 		}
 
-		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
+		@RequestMapping(value = "/connect/authorize2", method = RequestMethod.GET, produces = "application/json")
 		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response,
                                         @RequestParam("response_type") String response_type,
                                         @RequestParam("client_id") String client_id,
@@ -116,6 +116,29 @@ public class RController {
 		}
 
 
+		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
+		public String accessToken(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response,
+                                        @RequestParam("response_type") String response_type,
+                                        @RequestParam("client_id") String client_id,
+                                        @RequestParam("redirect_uri") String redirect_uri,
+                                        @RequestParam("scope") String scope,
+                                        @RequestParam("state") String state
+                                        ) throws IOException
+		{
+			String access_token = "";
+			// If we could successfully populate the legacy objects then proceed with generating token else return an empty token
+			if(populateLegacyObjects(restTemplate, headers))
+			{
+				JWTGenerate jg = new JWTGenerate();
+        access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id);
+        response.sendRedirect(redirect_uri+"#access_token="+access_token+"&token_type=Bearer&state="+state+"&expires_in=3600");
+			}
+      else
+      {
+          response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&state="+state);
+      }
+			return access_token;
+		}
 
 		@RequestMapping(value = "/connect/allrest", method = RequestMethod.GET, produces = "application/json")
 		public CombinedInfo allrest(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
