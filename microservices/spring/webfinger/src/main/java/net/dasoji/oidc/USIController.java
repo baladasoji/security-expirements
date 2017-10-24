@@ -35,7 +35,7 @@ public class USIController {
         }
         else
         {
-            response.sendError(403, "No permission to access booking");
+//            response.sendError(403, "No permission to access booking");
           return "No permission to access booking";
         }
     }
@@ -48,7 +48,7 @@ public class USIController {
         }
         else
         {
-            response.sendError(403, "No permission to access invoices");
+  //          response.sendError(403, "No permission to access invoices");
           return "No permission to access invoices";
         }
     }

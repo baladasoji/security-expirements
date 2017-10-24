@@ -15,13 +15,11 @@ public class BearerJWTUtil {
 
     private static final String AUTH_HEADER = "authorization";
     private static final String BEARER_FRAGMENT = "Bearer";
-    private static DecodedJWT jwt = null ;
     private static String jwtString = null ;
     private static final Logger logger = LoggerFactory.getLogger(BearerJWTUtil.class);
     public static DecodedJWT getJWTfromHeader(HttpServletRequest request)
     {
-        if (jwt == null )
-        {
+    	DecodedJWT jwt = null ;
             String allheaders = "";
             String token="" ;
             Enumeration headerNames = request.getHeaderNames();
@@ -45,15 +43,14 @@ public class BearerJWTUtil {
                     exception.printStackTrace(System.err);
                 }
             }
-        }
         System.out.println ("Decoded JWT and it is "+jwt);
         return jwt;
 
     }
     public static String getJWTString(HttpServletRequest request)
     {
-        getJWTfromHeader(request);
-        jwtString = StringUtils.newStringUtf8(Base64.decodeBase64(jwt.getPayload()));
+        DecodedJWT jwt = getJWTfromHeader(request);
+        String jwtString = StringUtils.newStringUtf8(Base64.decodeBase64(jwt.getPayload()));
         return jwtString;
     }
 
@@ -63,7 +60,10 @@ public class BearerJWTUtil {
 	try
 	{
 
-		jwt=getJWTfromHeader(request);
+		DecodedJWT jwt=getJWTfromHeader(request);
+		if (jwt == null)
+			return result;
+		logger.info (jwt.getToken());
 		// First try to get the roles as simple string
 		String rolesString = jwt.getClaim("roles").asString();
 		if (rolesString !=null )
