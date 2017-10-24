@@ -18,6 +18,8 @@ public class USIController {
 
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
 
     @RequestMapping(value = "/usi", method = RequestMethod.GET, produces = "application/json")
     public String index() throws IOException {
@@ -33,6 +35,7 @@ public class USIController {
         }
         else
         {
+            response.sendError(403, "No permission to access booking");
           return "No permission to access booking";
         }
     }
@@ -45,6 +48,7 @@ public class USIController {
         }
         else
         {
+            response.sendError(403, "No permission to access invoices");
           return "No permission to access invoices";
         }
     }
