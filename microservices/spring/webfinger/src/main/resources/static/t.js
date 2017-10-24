@@ -93,6 +93,7 @@ cpXMLReq.onreadystatechange = function() {
       document.getElementById("cityprefix").innerHTML = this.responseText;
     }
     else if (this.readyState == 4 && this.status == 403) {
+      document.getElementById("cityprefix").style.color="red"
       document.getElementById("cityprefix").innerHTML = this.responseText;
     }
   };
@@ -109,6 +110,7 @@ cgXMLReq.onreadystatechange = function() {
     }
     else if (this.readyState == 4 && this.status == 403) {
       document.getElementById("citygeo").innerHTML = this.responseText;
+      document.getElementById("citygeo").style.color="red"
     }
   };
 //var vid = document.getElementById("decodedtoken").value;
