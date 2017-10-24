@@ -70,8 +70,8 @@ public class JWTGenerate
         .withSubject(ui.getUserId())
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis()+6000000))
-        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
-//        .withArrayClaim("rolelist",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
+//        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
+        .withArrayClaim("roles",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
         .sign(algorithm);
       return token;
       } catch (JWTCreationException exception){

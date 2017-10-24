@@ -4,6 +4,8 @@ import java.util.*;
 import javax.servlet.http.*;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger ;
+import org.slf4j.LoggerFactory ;
 import java.io.IOException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.JWT;
@@ -15,7 +17,7 @@ public class BearerJWTUtil {
     private static final String BEARER_FRAGMENT = "Bearer";
     private static DecodedJWT jwt = null ;
     private static String jwtString = null ;
-
+    private static final Logger logger = LoggerFactory.getLogger(BearerJWTUtil.class);
     public static DecodedJWT getJWTfromHeader(HttpServletRequest request)
     {
         if (jwt == null )
@@ -57,8 +59,29 @@ public class BearerJWTUtil {
 
     public static boolean assertRole(HttpServletRequest request, String role)
     {
-      jwt=getJWTfromHeader(request);
-      return (jwt.getClaim("roles").asString()).contains(role);
-    }
+    	boolean result = false ;
+	try
+	{
 
+		jwt=getJWTfromHeader(request);
+		// First try to get the roles as simple string
+		String rolesString = jwt.getClaim("roles").asString();
+		if (rolesString !=null )
+		{
+			result= rolesString.contains(role);
+		}
+		else
+		{
+			List<String> rolesList = jwt.getClaim("roles").asList(String.class);	
+			if (rolesList != null)
+				result = rolesList.contains(role);
+		}
+			
+	}
+	catch (Exception e)
+	{
+		logger.error("Error in role check", e);
+	}
+	return result ;
+    }
 }
