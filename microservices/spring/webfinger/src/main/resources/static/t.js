@@ -72,7 +72,7 @@ bkgXMLReq.onreadystatechange = function() {
     }
   };
 //var vid = document.getElementById("decodedtoken").value;
-bkgXMLReq.open("GET", "https://autht.maerskline.com/booking", true );
+bkgXMLReq.open("GET", "https://api195331live.gw-us-east.akana.com/booking", true );
 bkgXMLReq.setRequestHeader("Authorization", jwtb);
 bkgXMLReq.send(null);
 
@@ -83,7 +83,7 @@ invXMLReq.onreadystatechange = function() {
     }
   };
 //var vid = document.getElementById("decodedtoken").value;
-invXMLReq.open("GET", "https://autht.maerskline.com/invoices", true );
+invXMLReq.open("GET", "https://api195331live.gw-us-east.akana.com/invoices", true );
 invXMLReq.setRequestHeader("Authorization", jwtb);
 invXMLReq.send(null);
 
