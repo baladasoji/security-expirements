@@ -64,7 +64,7 @@ public class JWTGenerate
         .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")
 	.withClaim("aud",client_id)
 //	.withClaim("scope","profile")
-	.withClaim("appid","rcywhyza-2wdEIe9m5ppAq1xBr8x32c6D")
+//	.withClaim("appid","rcywhyza-2wdEIe9m5ppAq1xBr8x32c6D")
       //  .withClaim("firstname",ui.getFirstName())
       //  .withClaim("lastname",ui.getLastName())
         .withSubject(ui.getUserId())
