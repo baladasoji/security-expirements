@@ -84,7 +84,7 @@ public class RController {
 				return false;
 		}
 
-		@RequestMapping(value = "/connect/authorize2", method = RequestMethod.GET, produces = "application/json")
+		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
 		public CombinedToken authorize(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response,
                                         @RequestParam("response_type") String response_type,
                                         @RequestParam("client_id") String client_id,
@@ -116,7 +116,7 @@ public class RController {
 		}
 
 
-		@RequestMapping(value = "/connect/authorize", method = RequestMethod.GET, produces = "application/json")
+		@RequestMapping(value = "/connect/authorize2", method = RequestMethod.GET, produces = "application/json")
 		public String accessToken(RestTemplate restTemplate, @RequestHeader HttpHeaders headers, HttpServletResponse response,
                                         @RequestParam("response_type") String response_type,
                                         @RequestParam("client_id") String client_id,
@@ -133,7 +133,7 @@ public class RController {
 			}
       else
       {
-          response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri);
+          response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize2?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri);
       }
 			return access_token;
 		}
