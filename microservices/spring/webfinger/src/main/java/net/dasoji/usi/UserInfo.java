@@ -14,28 +14,13 @@ public class UserInfo {
     private String gaUserId;
     private String scvPersonId;
     private String officeName;
+    private String email;
     private Integer userType;
 
     public UserInfo() {
     }
 
-/*
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userId='"+ userId + "\'" +
-                "name='"+ name + "\'" +
-                "firstName='"+ firstName + "\'" +
-                "lastName='"+ lastName + "\'" +
-                "city='"+ city + "\'" +
-                "country='"+ country + "\'" +
-                "gaUserId='"+ gaUserId + "\'" +
-                "scvPersonId='" + scvPersonId + "\'" +
-                "officeName='" + officeName + "\'" +
-                "userType='" + userType + "\'" +
-                '}';
-    }
-*/
+
 	/**
 	* Returns value of userId
 	* @return
@@ -178,6 +163,22 @@ public class UserInfo {
 	*/
 	public void setOfficeName(String officeName) {
 		this.officeName = officeName;
+	}
+
+	/**
+	* Returns value of email
+	* @return
+	*/
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	* Sets new value of email
+	* @param
+	*/
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**

@@ -18,6 +18,8 @@ public class JWTGenerate
   private static final String PRIVATE_KEY_FILE_RSA = "certs/privkey8.pem";
   private static final String PUBLIC_KEY_FILE_RSA = "certs/pubkey.pem";
   private static final Logger logger = LoggerFactory.getLogger(JWTGenerate.class);
+  private static final  String ISSUER = "https://autht.maerskline.com";
+  private static final  String KEY_ID = "B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4" ;
 
   private String getApplicationRoles(String allroles, String application)
   {
@@ -60,9 +62,9 @@ public class JWTGenerate
     //Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
     String alwaysOnApplicationName = "AlwaysOn";
     String token = JWT.create()
-        .withIssuer("https://autht.maerskline.com")
-        .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")
-	.withClaim("aud",client_id)
+        .withIssuer(ISSUER)
+        .withKeyId(KEY_ID)
+	      .withClaim("aud",client_id)
 //	.withClaim("scope","profile")
 //	.withClaim("appid","rcywhyza-2wdEIe9m5ppAq1xBr8x32c6D")
       //  .withClaim("firstname",ui.getFirstName())
@@ -87,10 +89,6 @@ public class JWTGenerate
   }
   public String getIdToken(MMLUserData md, SessionInfo si, UserInfo ui, String client_id, String nonce, String access_token)
   {
-    String issuer = "https://autht.maerskline.com";
-    String aud = client_id ;
-
-
     try {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
     byte[] hash = digest.digest(access_token.getBytes(StandardCharsets.UTF_8));
@@ -105,10 +103,15 @@ public class JWTGenerate
     Algorithm algorithm = Algorithm.RSA256(publicKey,privateKey);
     //Algorithm algorithm = Algorithm.HMAC256("ThisisBalaDasojisBigSecretKey");
     String token = JWT.create()
-        .withIssuer("https://autht.maerskline.com")
-        .withKeyId("B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4")
+        .withIssuer(ISSUER)
+        .withKeyId(KEY_ID)
         .withClaim("firstname",ui.getFirstName())
         .withClaim("lastname",ui.getLastName())
+        .withClaim("email",ui.getEmail())
+        .withClaim("city",ui.getCity())
+        .withClaim("country",ui.getCountry())
+        .withClaim("office",ui.getOfficeName())
+	      .withClaim("aud",client_id)
         .withClaim("at_hash",encoded_hash)
         .withSubject(ui.getUserId())
         .withIssuedAt(new Date(System.currentTimeMillis()))
