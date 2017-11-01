@@ -100,18 +100,18 @@ public class RController {
 			if(populateLegacyObjects(restTemplate, headers))
 			{
 				JWTGenerate jg = new JWTGenerate();
-                String access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id);
-                String id_token = jg.getIdToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id, nonce, access_token ) ;
+        String access_token =jg.getAccessToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id);
+        String id_token = jg.getIdToken(mmlUserInfo.getUserData(),sessionEntities.getSessionEntities(),userEntities.getUserEntities(),client_id, nonce, access_token ) ;
 				token.setId_token(id_token);
 				token.setAccess_token(access_token);
 				token.setToken_type("Bearer");
 				token.setExpires_in(3600);
-                response.sendRedirect(redirect_uri+"#access_token="+access_token+"&token_type=Bearer&id_token="+id_token+"&state="+state);
+        response.sendRedirect(redirect_uri+"#access_token="+access_token+"&token_type=Bearer&expires_in=3600&id_token="+id_token+"&state="+state);
 			}
-            else
-            {
-                response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce+"&state="+state);
-            }
+      else
+      {
+        response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce+"&state="+state);
+      }
 			return token;
 		}
 
