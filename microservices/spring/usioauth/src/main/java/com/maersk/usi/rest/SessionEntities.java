@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class SessionEntities {
 
     private String message;
-    private SessionInfo sessionDetails ;
+    private SessionInfo sessionEntities ;
 
     public SessionEntities() {
     }
@@ -36,15 +36,15 @@ public class SessionEntities {
 	* Returns value of sessionEntities
 	* @return
 	*/
-	public SessionInfo getSessionDetails() {
-		return sessionDetails;
+	public SessionInfo getSessionEntities() {
+		return sessionEntities;
 	}
 
 	/**
 	* Sets new value of sessionEntities
 	* @param
 	*/
-	public void setSessionDetails(SessionInfo sessionDetails) {
-		this.sessionDetails = sessionDetails;
+	public void setSessionEntities(SessionInfo sessionEntities) {
+		this.sessionEntities = sessionEntities;
 	}
 }

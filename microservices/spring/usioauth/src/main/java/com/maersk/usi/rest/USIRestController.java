@@ -131,7 +131,7 @@ public class USIRestController {
 			return access_token;
 		}
 */
-    @RequestMapping(value = "/authorize/sessioninfo", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/connect/sessioninfo", method = RequestMethod.GET, produces = "application/json")
     public SessionEntities session(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
 		{
 			populateLegacyObjects(restTemplate, headers);
