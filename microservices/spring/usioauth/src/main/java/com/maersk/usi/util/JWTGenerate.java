@@ -49,7 +49,7 @@ public class JWTGenerate
     return rolelist;
   }
 
-  public String getAccessToken(SessionInfo si, DCInfo carrierinfo, DCInfo customerinfo, String client_id)
+  public String getAccessToken(SessionInfo si, DCInfo customerinfo, String client_id)
   {
     try {
     RSAPrivateKey privateKey = (RSAPrivateKey) PemUtils.readPrivateKeyFromFile(PRIVATE_KEY_FILE_RSA, "RSA");
@@ -74,7 +74,7 @@ public class JWTGenerate
         .withExpiresAt(new Date(System.currentTimeMillis()+6000000))
 //        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
         .withArrayClaim("roles",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
-        .withClaim("carrier", carrierinfo.getOutput())
+        .withClaim("carrier", si.getCarrier())
         .withClaim("customer_code",customerinfo.getOutput())
         .sign(algorithm);
       return token;
@@ -90,7 +90,7 @@ public class JWTGenerate
       return null ;
   }
 
-  public String getIdToken(SessionInfo si, DCInfo carrierinfo, DCInfo customerinfo, String client_id, String nonce, String access_token)
+  public String getIdToken(SessionInfo si, String client_id, String nonce, String access_token)
   {
     try {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");

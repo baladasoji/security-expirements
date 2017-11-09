@@ -102,8 +102,8 @@ public class USIRestController {
 			if(populateLegacyObjects(restTemplate, headers))
 			{
 				JWTGenerate jg = new JWTGenerate();
-        String access_token =jg.getAccessToken(sessionEntities.getSessionEntities(),carrierEntities.getUserEntities(), customerCodeEntities.getUserEntities(), client_id);
-        String id_token = jg.getIdToken(sessionEntities.getSessionEntities(),carrierEntities.getUserEntities(), customerCodeEntities.getUserEntities(),client_id, nonce, access_token ) ;
+        String access_token =jg.getAccessToken(sessionEntities.getSessionEntities(), customerCodeEntities.getUserEntities(), client_id);
+        String id_token = jg.getIdToken(sessionEntities.getSessionEntities(),client_id, nonce, access_token ) ;
 				token.setId_token(id_token);
 				token.setAccess_token(access_token);
 				token.setToken_type("Bearer");
