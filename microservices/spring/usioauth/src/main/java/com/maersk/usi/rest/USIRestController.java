@@ -27,7 +27,11 @@ public class USIRestController {
 	@Value("${myml.url}")
 	private String sspUrl;
 	private	ResponseEntity<String> usiSessionInfoResponse;
+	private	ResponseEntity<String> usiCarrierInfoResponse;
+	private	ResponseEntity<String> usiCustomerCodeInfoResponse;
 	private SessionEntities sessionEntities = new SessionEntities();
+	private UserEntities carrierEntities = new UserEntities();
+	private UserEntities customerCodeEntities = new UserEntities();
 
 	private static final Logger log = LoggerFactory.getLogger(USIRestController.class);
     @Bean
@@ -53,7 +57,12 @@ public class USIRestController {
 				if (validateLogin ())
 				{
 					log.info ("User is logged in");
+				usiCarrierInfoResponse = restTemplate.exchange (sspUrl+"/agent-api/getdatacontext?key=Carrier", HttpMethod.GET, he, String.class);
+				usiCustomerCodeInfoResponse = restTemplate.exchange (sspUrl+"/agent-api/getdatacontext?key=Customer_Code", HttpMethod.GET, he, String.class);
 					sessionEntities = objectMapper.readValue(usiSessionInfoResponse.getBody(), SessionEntities.class);
+					carrierEntities = objectMapper.readValue(usiCarrierInfoResponse.getBody(), UserEntities.class);
+					customerCodeEntities = objectMapper.readValue(usiCustomerCodeInfoResponse.getBody(), UserEntities.class);
+
 				}
 				else
 				{
@@ -137,21 +146,19 @@ public class USIRestController {
 			populateLegacyObjects(restTemplate, headers);
 			return sessionEntities;
     }
-/*
-    @RequestMapping(value = "/connect/getuser", method = RequestMethod.GET, produces = "application/json")
-    public UserEntities user(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
+    @RequestMapping(value = "/connect/getcarrier", method = RequestMethod.GET, produces = "application/json")
+    public UserEntities carrier(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
 		{
 			populateLegacyObjects(restTemplate, headers);
-			return userEntities;
+			return carrierEntities;
     }
 
 
 
-    @RequestMapping(value = "/connect/userinfo", method = RequestMethod.GET, produces = "application/json")
-    public MMLUserInfo mmlinfo(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
+    @RequestMapping(value = "/connect/getcustomercode", method = RequestMethod.GET, produces = "application/json")
+    public UserEntities customerCode(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
 		{
 			populateLegacyObjects(restTemplate, headers);
-			return mmlUserInfo;
+			return customerCodeEntities;
     }
-*/
 }
