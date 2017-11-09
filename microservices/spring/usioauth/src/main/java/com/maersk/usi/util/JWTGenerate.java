@@ -10,7 +10,7 @@ import java.security.interfaces.RSAPublicKey;
 import com.auth0.jwt.algorithms.Algorithm;
 import java.security.MessageDigest;
 import java.util.*;
-import com.maersk.usi.oauth.*;
+import com.maersk.usi.rest.*;
 import java.nio.charset.StandardCharsets;
 
 public class JWTGenerate
@@ -49,8 +49,7 @@ public class JWTGenerate
     return rolelist;
   }
 
-/*
-  public String getAccessToken(MMLUserData md, SessionInfo si, UserInfo ui, String client_id)
+  public String getAccessToken(SessionInfo si, DCInfo carrierinfo, DCInfo customerinfo, String client_id)
   {
     try {
     RSAPrivateKey privateKey = (RSAPrivateKey) PemUtils.readPrivateKeyFromFile(PRIVATE_KEY_FILE_RSA, "RSA");
@@ -70,11 +69,13 @@ public class JWTGenerate
 //	.withClaim("appid","rcywhyza-2wdEIe9m5ppAq1xBr8x32c6D")
       //  .withClaim("firstname",ui.getFirstName())
       //  .withClaim("lastname",ui.getLastName())
-        .withSubject(ui.getUserId())
+        .withSubject(si.getLoggedOnPrincipal())
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis()+6000000))
 //        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
         .withArrayClaim("roles",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
+        .withClaim("carrier", carrierinfo.getOutput())
+        .withClaim("customer_code",customerinfo.getOutput())
         .sign(algorithm);
       return token;
       } catch (JWTCreationException exception){
@@ -88,7 +89,8 @@ public class JWTGenerate
       }
       return null ;
   }
-  public String getIdToken(MMLUserData md, SessionInfo si, UserInfo ui, String client_id, String nonce, String access_token)
+
+  public String getIdToken(SessionInfo si, DCInfo carrierinfo, DCInfo customerinfo, String client_id, String nonce, String access_token)
   {
     try {
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -106,15 +108,15 @@ public class JWTGenerate
     String token = JWT.create()
         .withIssuer(ISSUER)
         .withKeyId(KEY_ID)
-        .withClaim("firstname",ui.getFirstName())
-        .withClaim("lastname",ui.getLastName())
-        .withClaim("email",ui.getEmail())
-        .withClaim("city",ui.getCity())
-        .withClaim("country",ui.getCountry())
-        .withClaim("office",ui.getOfficeName())
+        .withClaim("firstname",si.getFirstName())
+        .withClaim("lastname",si.getLastName())
+        .withClaim("email",si.getEmail())
+        .withClaim("city",si.getCity())
+        .withClaim("country",si.getCountry())
+        .withClaim("office",si.getOfficeName())
 	      .withClaim("aud",client_id)
         .withClaim("at_hash",encoded_hash)
-        .withSubject(ui.getUserId())
+        .withSubject(si.getLoggedOnPrincipal())
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis()+60000))
         .sign(algorithm);
@@ -165,5 +167,4 @@ public class JWTGenerate
       }
       return null ;
   }
-  */
 }
