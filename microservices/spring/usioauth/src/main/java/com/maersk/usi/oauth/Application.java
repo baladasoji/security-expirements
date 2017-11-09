@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-@SpringBootApplication(scanBasePackages = {"com.usi.maersk","net.dasoji"})
+@SpringBootApplication(scanBasePackages = {"com.maersk.usi","net.dasoji"})
 public class Application {
 
     public static void main(String[] args) {

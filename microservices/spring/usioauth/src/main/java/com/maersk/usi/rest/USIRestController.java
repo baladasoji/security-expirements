@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.http.HttpServletResponse;
 import com.maersk.usi.util.JWTGenerate;
 import java.io.IOException;
-@RestController
 
+@RestController
 public class USIRestController {
 
 	@Value("${myml.url}")
@@ -131,7 +131,7 @@ public class USIRestController {
 			return access_token;
 		}
 */
-    @RequestMapping(value = "/connect/sessioninfo", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/authorize/sessioninfo", method = RequestMethod.GET, produces = "application/json")
     public SessionEntities session(RestTemplate restTemplate, @RequestHeader HttpHeaders headers)
 		{
 			populateLegacyObjects(restTemplate, headers);
