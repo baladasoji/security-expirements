@@ -3,7 +3,7 @@ var bkgXMLReq;
 var bolXMLReq;
 var finXMLReq;
 var admXMLReq;
-
+var api_url = "http://api.ccp.apmoller.net:8888";
 
 
 function callRest()
@@ -31,7 +31,7 @@ else{
           document.getElementById("booking").className='noauthrest'  
         }
       };
-    bkgXMLReq.open("GET", "http://localhost:8888/booking", true );
+    bkgXMLReq.open("GET", api_url + "/booking", true );
     bkgXMLReq.setRequestHeader("Authorization", jwtb);
     bkgXMLReq.send(null);
 
@@ -46,7 +46,7 @@ else{
           document.getElementById("bol").className='noauthrest'  
         }
       };
-    bolXMLReq.open("GET", "http://localhost:8888/bol", true );
+    bolXMLReq.open("GET", api_url+ "/bol", true );
     bolXMLReq.setRequestHeader("Authorization", jwtb);
     bolXMLReq.send(null);
 
@@ -61,7 +61,7 @@ else{
           document.getElementById("finance").className='noauthrest'  
         }
       };
-    finXMLReq.open("GET", "http://localhost:8888/finance", true );
+    finXMLReq.open("GET", api_url + "/finance", true );
     finXMLReq.setRequestHeader("Authorization", jwtb);
     finXMLReq.send(null);
 
@@ -76,7 +76,7 @@ else{
           document.getElementById("admin").className='noauthrest'  
         }
       };
-    admXMLReq.open("GET", "http://localhost:8888/admin", true );
+    admXMLReq.open("GET", api_url+ "/admin", true );
     admXMLReq.setRequestHeader("Authorization", jwtb);
     admXMLReq.send(null);
 
@@ -92,7 +92,7 @@ else{
           document.getElementById("userdetails").className='noauthrest'  
         }
       };
-    usrXMLReq.open("GET", "http://localhost:8888/userdetails", true );
+    usrXMLReq.open("GET", api_url+ "/userdetails", true );
     usrXMLReq.setRequestHeader("Authorization", jwtb);
     usrXMLReq.send(null);
 

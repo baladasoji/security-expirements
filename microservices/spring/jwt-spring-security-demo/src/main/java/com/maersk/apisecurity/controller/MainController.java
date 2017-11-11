@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Example controller to test security calls
  */
-@CrossOrigin(origins = "http://localhost:5000")
+@CrossOrigin(origins = "*")
 @RestController
 public class MainController {
 
