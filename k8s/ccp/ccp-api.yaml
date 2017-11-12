@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ccp-api-rs
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ccpapi
+    spec:
+      containers:
+      - name: ccpapicontainer
+        image: gcr.io/dazzling-tensor-217/jwt-springsecurity:latest
+        ports:
+        - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ccp-api-service
+  labels:
+    app: ccpapi
+spec:
+  ports:
+  - port: 80
+    targetPort: 8888
+    protocol: TCP
+    name: http
+  selector:
+    app: ccpapi

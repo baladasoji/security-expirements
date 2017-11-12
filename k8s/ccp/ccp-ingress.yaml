@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+  name: ccp-ingress  # The ingress name must be unique for each ingress rule created.
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+  - host: ccp.apmoller.net
+    http:
+      paths:
+      - path: /  # This is the url path used to access the service externally.
+        backend:
+          serviceName: ccp-web-service # This is the name of the service to be exposed.
+          servicePort: 80  # This is the port on which the service is exposed.
+  - host: api.ccp.apmoller.net
+    http:
+      paths:
+      - path: /  # This is the url path used to access the service externally.
+        backend:
+          serviceName: ccp-api-service # This is the name of the service to be exposed.
+          servicePort: 80  # This is the port on which the service is exposed.
