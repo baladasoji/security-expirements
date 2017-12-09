@@ -112,7 +112,7 @@ public class USIRestController {
 			}
       else
       {
-        response.sendRedirect(sspUrl+"/portaluser/#login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce+"&state="+state);
+        response.sendRedirect(sspUrl+"/webuser/login?originalUrl=https://autht.maerskline.com/connect/authorize?response_type="+response_type+"&client_id="+client_id+"&redirect_uri="+redirect_uri+"&scope="+scope+"&nonce="+nonce+"&state="+state);
       }
 			return token;
 		}

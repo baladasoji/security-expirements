@@ -51,8 +51,9 @@ function getVendorInvoice()
 checkHash();
       document.getElementById("idtoken").innerHTML = id_token;
       document.getElementById("accesstoken").innerHTML = access_token;
-//      document.getElementById("tokentype").innerHTML = token_type;
-//      document.getElementById("state").innerHTML = state;
+      document.getElementById("tokentype").innerHTML = token_type;
+      document.getElementById("state").innerHTML = state;
+/*dd
 jwtb="Bearer "+access_token;
 XMLReq = new XMLHttpRequest();
 XMLReq.onreadystatechange = function() {
@@ -61,6 +62,8 @@ XMLReq.onreadystatechange = function() {
     }
   };
 //var vid = document.getElementById("decodedtoken").value;
+
+
 XMLReq.open("GET", "https://autht.maerskline.com/usi", true );
 XMLReq.setRequestHeader("Authorization", jwtb);
 XMLReq.send(null);
@@ -117,5 +120,25 @@ cgXMLReq.onreadystatechange = function() {
 cgXMLReq.open("GET", "https://api188190live.gw-eu-east.akana.com/MAEU/locations/details/0QU63OKMO5YN0", true );
 cgXMLReq.setRequestHeader("Authorization", jwtb);
 cgXMLReq.send(null);
+*/
+}
 
+
+function callFrAuthenticate()
+{
+usiidtoken = document.getElementById("idtoken").innerHTML;  
+frXMLReqReq = new XMLHttpRequest();
+frXMLReqReq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("frauth").innerHTML = this.responseText;
+    }
+    else if (this.readyState == 4 && this.status == 403) {
+      document.getElementById("frauth").innerHTML = this.responseText;
+      document.getElementById("frauth").style.color="red"
+    }
+  };
+//var vid = document.getElementById("decodedtoken").value;
+frXMLReqReq.open("POST", "http://iam-cdt.maerskline.com/openam/json/realms/maersk-users/authenticate?authIndexType=module&authIndexValue=openidmodule", true );
+frXMLReqReq.setRequestHeader("oidc-id-token", usiidtoken);
+frXMLReqReq.send(null);
 }

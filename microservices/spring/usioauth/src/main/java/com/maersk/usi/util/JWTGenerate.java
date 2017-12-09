@@ -20,6 +20,7 @@ public class JWTGenerate
   private static final Logger logger = LoggerFactory.getLogger(JWTGenerate.class);
   private static final  String ISSUER = "https://autht.maerskline.com";
   private static final  String KEY_ID = "B36D568F46A3AA89BA98FDFD73F99837D2A1C6D4" ;
+  private static final long VALIDITY_MILLI_SECONDS = 28800000 ; // 8 hours for the token expiry ;
 
   private String getApplicationRoles(String allroles, String application)
   {
@@ -71,7 +72,7 @@ public class JWTGenerate
       //  .withClaim("lastname",ui.getLastName())
         .withSubject(si.getLoggedOnPrincipal())
         .withIssuedAt(new Date(System.currentTimeMillis()))
-        .withExpiresAt(new Date(System.currentTimeMillis()+6000000))
+        .withExpiresAt(new Date(System.currentTimeMillis()+VALIDITY_MILLI_SECONDS))
 //        .withClaim("roles",getApplicationRoles(si.getRoles(),alwaysOnApplicationName))
         .withArrayClaim("roles",getApplicationRolesAsList(si.getRoles(),alwaysOnApplicationName).toArray(new String[0]))
         .withClaim("carrier", si.getCarrier())
@@ -118,7 +119,7 @@ public class JWTGenerate
         .withClaim("at_hash",encoded_hash)
         .withSubject(si.getLoggedOnPrincipal())
         .withIssuedAt(new Date(System.currentTimeMillis()))
-        .withExpiresAt(new Date(System.currentTimeMillis()+60000))
+        .withExpiresAt(new Date(System.currentTimeMillis()+VALIDITY_MILLI_SECONDS))
         .sign(algorithm);
         return token;
       } catch (JWTCreationException exception){
