@@ -1,3 +1,4 @@
+# Comment to test atom git functionality
 FROM openjdk:8-jdk-alpine
 RUN apk add --no-cache curl tar bash maven
 COPY target/usi-oauth-0.1.0.jar /app.jar
