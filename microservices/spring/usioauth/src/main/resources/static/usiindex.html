@@ -32,7 +32,7 @@
        <div class="jumbotron">
          <div class="container">
            <h1>Welcome !</h1>
-           <p>Welcome to EIAM POC Demo. We will demonstrate first login to USI and then use the same towards EIAM and in the end make an API call</p>
+           <p>Welcome to CIAM POC Demo. We will demonstrate first login to USI and then use the same towards EIAM and in the end make an API call</p>
            <p><a class="btn btn-primary btn-lg" href="https://autht.maerskline.com/connect/authorize?client_id=akana&scope=openid&nonce=123455&response_type=token&state=34567898&redirect_uri=https%3A%2F%2Fiam-cdt.maerskline.com%2Fspa%2Fusiindex.html" role="button">Login to USI &raquo;</a></p>
            <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="populateTokens()">Display Tokens &raquo;</a></p>
          </div>
@@ -43,12 +43,12 @@
          <div class="row">
            <div class="col-md-4">
              <h2>USI ID Token</h2>
-             <p id='usitoken'></p>
-             <p><a class="btn btn-default usi-wrap" href="#" role="button">View details &raquo;</a></p>
+             <p id='usitoken' class="usi-wrap"></p>
+             <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
            </div>
            <div class="col-md-4">
              <h2>Decoded ID Token from USI</h2>
-             <p id='decodedusitoken'> </p>
+             <p id='decodedusitoken' class="usi-wrap"> </p>
              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
           </div>
            <div class="col-md-4">
