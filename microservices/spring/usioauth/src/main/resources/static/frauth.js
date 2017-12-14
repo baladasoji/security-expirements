@@ -93,7 +93,7 @@ frXMLOAuthReq.open("POST", "https://iam-cdt.maerskline.com/openam/oauth2/realms/
 frXMLOAuthReq.withCredentials=true;
 frXMLOAuthReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 //frXMLOAuthReq.setRequestHeader("oidc_id_token", usiidtoken);
-frXMLOAuthReq.send('scope=openid%20profile&redirect_uri=https%3A%2F%2Fautht.maerskline.com%2Findex.html&csrf='+csrf+'&decision=allow&response_type=id_token%20token&client_id=agent101&nonce=hkjcasdblscertsdgf');
+frXMLOAuthReq.send('scope=openid%20profile&redirect_uri=https%3A%2F%2Fiam-cdt.maerskline.com%2Fspa%2Findex.html&csrf='+csrf+'&decision=allow&response_type=id_token%20token&client_id=agent101&nonce=hkjcasdblscertsdgf');
 }
 
   function callLocationAPI()
