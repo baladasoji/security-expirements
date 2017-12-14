@@ -93,7 +93,7 @@ function oauth2SignIn() {
 csrf = JSON.parse(sessionStorage.frtoken).tokenId;
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {'client_id': 'agent101',                        //YOUR_CLIENT_ID,
-                  'redirect_uri': 'https://iam-cdt.maerskline.com/spa/index.html',
+                  'redirect_uri': 'https://iam-cdt.maerskline.com/spa/frindex.html',
                   'scope': 'openid profile',
                   'csrf' : csrf ,
                   'decision' : 'allow',
