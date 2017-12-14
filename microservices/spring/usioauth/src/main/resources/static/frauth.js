@@ -76,7 +76,6 @@ frXMLReqReq.send(null);
 
 function getFrToken()
 {
-csrf = JSON.parse(sessionStorage.frtoken).tokenId;
 
 frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
@@ -95,6 +94,7 @@ frXMLOAuthReq.onreadystatechange = function() {
       document.getElementById("fraccess").style.color="red"
     }
   };
+
 //var vid = document.getElementById("decodedtoken").value;
 frXMLOAuthReq.open("POST", "https://iam-cdt.maerskline.com/openam/oauth2/realms/maersk-users/authorize", true);
 frXMLOAuthReq.withCredentials=true;
@@ -102,6 +102,41 @@ frXMLOAuthReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded
 //frXMLOAuthReq.setRequestHeader("oidc_id_token", usiidtoken);
 frXMLOAuthReq.send('scope=openid%20profile&redirect_uri=https%3A%2F%2Fiam-cdt.maerskline.com%2Fspa%2Findex.html&csrf='+csrf+'&decision=allow&response_type=id_token%20token&client_id=agent101&nonce=hkjcasdblscertsdgf');
 }
+
+
+function oauth2SignIn() {
+    var oauth2Endpoint = 'https://iam-cdt.maerskline.com/openam/oauth2/realms/maersk-users/authorize';
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST'); // Send as a GET request.
+    form.setAttribute('action', oauth2Endpoint);
+
+	var response_type = 'id_token token' ;
+
+csrf = JSON.parse(sessionStorage.frtoken).tokenId;
+    // Parameters to pass to OAuth 2.0 endpoint.
+    var params = {'client_id': 'agent101',                        //YOUR_CLIENT_ID,
+                  'redirect_uri': 'https://iam-cdt.maerskline.com/spa/index.html',
+                  'scope': 'openid profile',
+                  'csrf' : csrf ,
+                  'decision' : 'allow',
+                  'nonce' : 'asldrfjilkjwerf',
+                  'response_type': response_type,
+				  };
+
+    // Add form parameters as hidden input values.
+    for (var p in params) {
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', p);
+      input.setAttribute('value', params[p]);
+      form.appendChild(input);
+    }
+
+    // Add form to page and submit it to open the OAuth 2.0 endpoint.
+    document.body.appendChild(form);
+    form.submit();
+  }
+
 
   function callLocationAPI()
 {
