@@ -83,6 +83,7 @@ frXMLOAuthReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       //document.getElementById("fraccess").innerHTML = this.responseText;
       console.log (" Inside 200" + this.getResponseHeader("location"));
+      console.log (" ResponseText " + this.responseText);
       //  window.location = this.getResponseHeader("location");
     }
     else if (this.readyState == 4 && this.status == 302) {
