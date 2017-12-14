@@ -45,7 +45,21 @@ function populateTokens()
 
 checkHash();
       document.getElementById("usitoken").innerHTML = id_token;
-      document.getElementById("decodedusitoken").innerHTML = id_token;
+
+      jwtb="Bearer "+id_token;
+
+
+    	// Call the Booking API
+    	bkgXMLReq = new XMLHttpRequest();
+    	bkgXMLReq.onreadystatechange = function() {
+    	    if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("decodedusitoken").innerHTML = this.responseText;
+    	    }
+    	  };
+    	//var vid = document.getElementById("decodedtoken").value;
+    	bkgXMLReq.open("GET", "https://autht.maerskline.com/usi", true );
+    	bkgXMLReq.setRequestHeader("Authorization", jwtb);
+    	bkgXMLReq.send(null);
 }
 
 
