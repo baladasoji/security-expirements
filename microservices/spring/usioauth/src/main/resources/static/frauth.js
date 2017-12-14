@@ -154,7 +154,8 @@ cityXMLReq.onreadystatechange = function() {
     document.getElementById("cities").className='noauthrest'
   }
   };
-	cityXMLReq.open("GET", "https://api205063live.gateway.akana.com/maeu/locations/cities?cityprefix=az", true );
+	cityXMLReq.open("GET", "https://api159165live.gw-us-east.akana.com/", true);
+//	cityXMLReq.open("GET", "https://api205063live.gateway.akana.com/maeu/locations/cities?cityprefix=az", true );
 	cityXMLReq.setRequestHeader("Authorization",jwtb );
 	cityXMLReq.send(null);
 }
