@@ -82,9 +82,11 @@ frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       //document.getElementById("fraccess").innerHTML = this.responseText;
-      window.location =this.responseText;
+      console.log (" Inside 200" + this.getResponseHeader("location"));
+        window.location = this.getResponseHeader("location");
     }
     else if (this.readyState == 4 && this.status == 302) {
+      console.log (" Inside 302" + this.getResponseHeader("location"));
         window.location = this.getResponseHeader("location");
       }
     else if (this.readyState == 4 && this.status == 403) {
