@@ -68,7 +68,7 @@ frXMLReqReq.onreadystatechange = function() {
 //var vid = document.getElementById("decodedtoken").value;
 frXMLReqReq.open("POST", "https://iam-cdt.maerskline.com/openam/json/realms/maersk-users/authenticate?authIndexType=module&authIndexValue=UsiJwtAuthentication", true );
 frXMLReqReq.setRequestHeader("oidc_id_token", usiidtoken);
-frXMLReqReq.withCredentials=true;
+//frXMLReqReq.withCredentials=true;
 frXMLReqReq.send(null);
 }
 
