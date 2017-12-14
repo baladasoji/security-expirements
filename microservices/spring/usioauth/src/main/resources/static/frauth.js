@@ -77,6 +77,7 @@ frXMLReqReq.send(null);
 function getFrToken()
 {
 
+csrf = JSON.parse(sessionStorage.frtoken).tokenId;
 frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
