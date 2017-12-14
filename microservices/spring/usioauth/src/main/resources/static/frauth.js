@@ -78,6 +78,7 @@ function getFrToken()
 
 frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
       document.getElementById("frauth").innerHTML = this.responseText;
     }
     else if (this.readyState == 4 && this.status == 403) {
