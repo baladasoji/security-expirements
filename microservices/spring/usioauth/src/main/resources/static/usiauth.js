@@ -57,7 +57,7 @@ checkHash();
     	    }
     	  };
     	//var vid = document.getElementById("decodedtoken").value;
-    	bkgXMLReq.open("GET", "https://autht.maerskline.com/usi", true );
+    	bkgXMLReq.open("GET", "https://iam-cdt.maerskline.com/spa/usi", true );
     	bkgXMLReq.setRequestHeader("Authorization", jwtb);
     	bkgXMLReq.send(null);
 }
