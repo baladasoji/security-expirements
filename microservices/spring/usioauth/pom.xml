@@ -80,7 +80,7 @@
                 </goals>
                 <configuration>
                   <!-- <repository>gcr.io/dazzling-tensor-217/usi-oauth</repository> -->
-                  <repository>baladasoji/usi-oauth</repository>
+                  <repository>dasoji/usi-oauth</repository>
                 </configuration>
               </execution>
             </executions>
