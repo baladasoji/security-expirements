@@ -81,7 +81,8 @@ csrf = JSON.parse(sessionStorage.frtoken).tokenId;
 frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("fraccess").innerHTML = this.responseText;
+      //document.getElementById("fraccess").innerHTML = this.responseText;
+      window.location =this.responseText;
     }
     else if (this.readyState == 4 && this.status == 403) {
       document.getElementById("fraccess").innerHTML = this.responseText;
