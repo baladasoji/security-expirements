@@ -58,6 +58,7 @@ frXMLReqReq = new XMLHttpRequest();
 frXMLReqReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("frauth").innerHTML = this.responseText;
+      sessionStorage.frtoken = this.responseText;
     }
     else if (this.readyState == 4 && this.status == 403) {
       document.getElementById("frauth").innerHTML = this.responseText;
@@ -67,6 +68,7 @@ frXMLReqReq.onreadystatechange = function() {
 //var vid = document.getElementById("decodedtoken").value;
 frXMLReqReq.open("POST", "https://iam-cdt.maerskline.com/openam/json/realms/maersk-users/authenticate?authIndexType=module&authIndexValue=UsiJwtAuthentication", true );
 frXMLReqReq.setRequestHeader("oidc_id_token", usiidtoken);
+frXMLReqReq.withCredentials=true;
 frXMLReqReq.send(null);
 }
 
@@ -74,22 +76,23 @@ frXMLReqReq.send(null);
 
 function getFrToken()
 {
-	sessionStorage.frtoken='put fr token here';
+csrf = JSON.parse(sessionStorage.frtoken).tokenId;
 
 frXMLOAuthReq = new XMLHttpRequest();
 frXMLOAuthReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("frauth").innerHTML = this.responseText;
+      document.getElementById("fraccess").innerHTML = this.responseText;
     }
     else if (this.readyState == 4 && this.status == 403) {
-      document.getElementById("frauth").innerHTML = this.responseText;
-      document.getElementById("frauth").style.color="red"
+      document.getElementById("fraccess").innerHTML = this.responseText;
+      document.getElementById("fraccess").style.color="red"
     }
   };
 //var vid = document.getElementById("decodedtoken").value;
 frXMLOAuthReq.open("POST", "https://iam-cdt.maerskline.com/openam/oauth2/realms/maersk-users/authorize", true);
+frXMLOAuthReq.withCredentials=true;
 //frXMLOAuthReq.setRequestHeader("oidc_id_token", usiidtoken);
-frXMLOAuthReq.send('scope=openid%20profile&redirect_uri=https%3A%2F%2Fautht.maerskline.com%2Findex.html&csrf=LUY6RyGBpFdgRGFAAv4veXGPE8g.*AAJTSQACMDIAAlNLABxHcE1zNWRWdngxb1p1emdzVm53Sm15Tm9PRVU9AAJTMQACMDE.*&decision=allow&response_type=id_token%20token&client_id=agent101&nonce=hkjcasdblscertsdgf');
+frXMLOAuthReq.send('scope=openid%20profile&redirect_uri=https%3A%2F%2Fautht.maerskline.com%2Findex.html&csrf='+csrf+'&decision=allow&response_type=id_token%20token&client_id=agent101&nonce=hkjcasdblscertsdgf');
 }
 
   function callLocationAPI()
