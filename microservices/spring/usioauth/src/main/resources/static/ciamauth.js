@@ -56,9 +56,9 @@ checkHash();
 }
 
 
-  function callLocationAPI()
+function callLocationAPI()
 {
-jwtb = "Bearer "+id_token ;
+//jwtb = "Bearer "+id_token ;
 cityXMLReq = new XMLHttpRequest();
 cityXMLReq.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
