@@ -70,8 +70,8 @@ cityXMLReq.onreadystatechange = function() {
     document.getElementById("cities").className='noauthrest'
   }
   };
-	// Working request cityXMLReq.open("GET", "https://api159165live.gw-us-east.akana.com/", true);
-	cityXMLReq.open("GET", "https://apit.maerskline.com/maeu/locations/cities?cityprefix=hn", true );
+	 cityXMLReq.open("GET", "https://api159165live.gw-us-east.akana.com/", true);
+//	cityXMLReq.open("GET", "https://apit.maerskline.com/maeu/locations/cities?cityprefix=hn", true );
 	cityXMLReq.setRequestHeader("Authorization",jwtb );
 	cityXMLReq.send(null);
 }
