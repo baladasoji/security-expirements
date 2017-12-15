@@ -39,6 +39,20 @@ function populateTokens()
 
 checkHash();
       document.getElementById("fridtoken").innerHTML = id_token;
+      jwtb="Bearer "+id_token;
+
+
+      // Call the Booking API
+      bkgXMLReq = new XMLHttpRequest();
+      bkgXMLReq.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("decodedfrtoken").innerHTML = this.responseText;
+          }
+        };
+      //var vid = document.getElementById("decodedtoken").value;
+      bkgXMLReq.open("GET", "https://iam-cdt.maerskline.com/spa/usi", true );
+      bkgXMLReq.setRequestHeader("Authorization", jwtb);
+      bkgXMLReq.send(null);
 }
 
 
